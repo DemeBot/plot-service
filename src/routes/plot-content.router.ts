@@ -1,18 +1,18 @@
 import { Router } from "express";
 
-import ToolService from "./../services/tool.service";
+import PlotContentService from "./../services/plot-content.service";
 
 export class PlotContentRouter {
 
     router: Router;
-    private toolService: ToolService;
+    private plotContentService: PlotContentService;
 
     /**
      * Initialize the router
      */
-    constructor( toolService?: ToolService ) {
+    constructor( _plotContentService?: PlotContentService ) {
 
-        this.toolService = typeof toolService !== "undefined" ? toolService : new ToolService();
+        this.plotContentService = _plotContentService || new PlotContentService();
 
         this.router = Router();
         this.init();
@@ -60,26 +60,26 @@ export class PlotContentRouter {
          * @apiUse PlotContentRequest
          * @apiUse PlotContentResponse
          */
-        this.router.get( "/", this.toolService.get );
+        this.router.get( "/", this.plotContentService.get );
 
         /**
-         * @api {post} /api/contents Add a new tool
-         * @apiName Add a new tool
-         * @apiGroup Tool
+         * @api {post} /api/contents Add a new plot content
+         * @apiName Add a new plot content
+         * @apiGroup PlotContent
          *
-         * @apiUse ToolRequest
-         * @apiUse ToolResponse
+         * @apiUse PlotContentRequest
+         * @apiUse PlotContentResponse
          */
-        this.router.post( "/", this.toolService.post );
+        this.router.post( "/", this.plotContentService.post );
 
         /**
-         * @api {delete} /api/contents Delete a tool by id
-         * @apiName Delete a  tool
-         * @apiGroup Tool
+         * @api {delete} /api/contents Delete a plot content by id
+         * @apiName Delete a  plot content
+         * @apiGroup PlotContent
          *
-         * @apiParam (Request Parameters) {number} id Database id of the tool
+         * @apiParam (Request Parameters) {number} id Database id of the plot content
          */
-        this.router.delete( "/", this.toolService.delete );
+        this.router.delete( "/", this.plotContentService.delete );
     }
 }
 

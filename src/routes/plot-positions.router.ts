@@ -1,18 +1,18 @@
 import { Router } from "express";
 
-import ToolService from "./../services/tool.service";
+import PlotPositionService from "./../services/plot-position.service";
 
 export class PlotPositionRouter {
 
     router: Router;
-    private toolService: ToolService;
+    private plotPositionService: PlotPositionService;
 
     /**
      * Initialize the router
      */
-    constructor( toolService?: ToolService ) {
+    constructor( _plotPositionService?: PlotPositionService ) {
 
-        this.toolService = typeof toolService !== "undefined" ? toolService : new ToolService();
+        this.plotPositionService = _plotPositionService || new PlotPositionService();
 
         this.router = Router();
         this.init();
@@ -54,7 +54,7 @@ export class PlotPositionRouter {
          * @apiUse PlotPositionRequest
          * @apiUse PlotPositionResponse
          */
-        this.router.get( "/", this.toolService.get );
+        this.router.get( "/", this.plotPositionService.get );
 
         /**
          * @api {post} /api/positions Add a new plot position
@@ -64,7 +64,7 @@ export class PlotPositionRouter {
          * @apiUse PlotPositionRequest
          * @apiUse PlotPositionResponse
          */
-        this.router.post( "/", this.toolService.post );
+        this.router.post( "/", this.plotPositionService.post );
 
         /**
          * @api {delete} /api/positions Delete a plot position by id
@@ -73,7 +73,7 @@ export class PlotPositionRouter {
          *
          * @apiParam (Request Parameters) {number} id Database id of the tool
          */
-        this.router.delete( "/", this.toolService.delete );
+        this.router.delete( "/", this.plotPositionService.delete );
     }
 }
 
