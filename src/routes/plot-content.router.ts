@@ -2,7 +2,7 @@ import { Router } from "express";
 
 import ToolService from "./../services/tool.service";
 
-export class ToolRouter {
+export class PlotContentRouter {
 
     router: Router;
     private toolService: ToolService;
@@ -19,44 +19,51 @@ export class ToolRouter {
 
     }
 
-
-
-    // Plant type ID of the plant
-    PLANT_TYPES_id: number;
-
     init() {
         /**
          * @apiDefine PlotContentRequest
          *
-         * @apiParam (Request Parameters) {Date} planted_at Date the plant was planted 
-         * @apiParam (Request Parameters) {string} PLANT_TYPES_id Description of the tool
+         * @apiParam (Request Parameters) {number} [id] Database id of the plot content
+         * @apiParam (Request Parameters) {Date} [planted_at] Date the plot content was planted 
+         * @apiParam (Request Parameters) {number} [PLANT_TYPES_id] Plant type ID of the plot content
+         * @apiParam (Request Parameters) {number} [PLOT_POSITIONS_id] Plot position ID of the plot content
+         * @apiParam (Request Parameters) {boolean} [get_deleted=false] Get plot contents even if they're deleted
          */
 
         /**
-         * @apiDefine ToolResponse
+         * @apiDefine PlotContentPost
          *
-         * @apiSuccess (Successful Response) {number} tool.id Database id of the tool
-         * @apiSuccess (Successful Response) {string} tool.name Name of the tool
-         * @apiSuccess (Successful Response) {string} tool.description Description of the tool
-         * @apiSuccess (Successful Response) {Date} tool.ended_at Deleted at time
-         * @apiSuccess (Successful Response) {Date} tool.created_at Created at time
+         * @apiParam (Post Body) {Date} planted_at Date the plot content was planted 
+         * @apiParam (Post Body) {number} PLANT_TYPES_id Plant type ID of the plot content
+         * @apiParam (Post Body) {number} PLOT_POSITIONS_id Plot position ID of the plot content
          */
 
         /**
-         * @api {get} /api Get all tools
-         * @apiName root
-         * @apiGroup Tool
+         * @apiDefine PlotContentResponse
          *
-         * @apiParam (Request Parameters) {number} [id] Database id of the tool
-         * @apiParam (Request Parameters) {string} [name] Name of the tool
-         * @apiParam (Request Parameters) {boolean} [get_deleted=false] Get tools even if they're deleted
-         * @apiSuccess (Successful Response) {tool[]} tools An array of tools. Each element in the array has the following keys:
-         * @apiUse ToolResponse
+         * @apiSuccess (Successful Response) {plot_content[]} plot_contents An array of plot contents. Each element in the array has the following keys:
+         * @apiSuccess (Successful Response) {Date} plot_content.planted_at Date the plant was planted 
+         * @apiSuccess (Successful Response) {number} plot_content.PLANT_TYPES_id Plant type ID of the plant
+         * @apiSuccess (Successful Response) {number} plot_content.PLOT_POSITIONS_id Plot position ID of the plant
+         * @apiSuccess (Successful Response) {number} plot_content.r Plot Radial position value. Unit: mm. Represents the distance from the center of the plant to the center of the DemeBot center pivot.
+         * @apiSuccess (Successful Response) {number} plot_content.t Theta angle value. Unit: degrees. Respresents the angular distance from the DemeBot's most clockwise reach to the position the DemeBot's arms must be to reach the plant.
+         * @apiSuccess (Successful Response) {number} plot_content.z Z position value. Unit: mm. Represents the vertical distance of the plant's base.
+         * @apiSuccess (Successful Response) {Date} plot_content.ended_at Deleted at time
+         * @apiSuccess (Successful Response) {Date} plot_content.created_at Created at time
+         */
+
+        /**
+         * @api {get} /api/contents Get plot contents
+         * @apiName Get plot contents
+         * @apiGroup PlotContent
+         *
+         * @apiUse PlotContentRequest
+         * @apiUse PlotContentResponse
          */
         this.router.get( "/", this.toolService.get );
 
         /**
-         * @api {post} /api Add a new tool
+         * @api {post} /api/contents Add a new tool
          * @apiName Add a new tool
          * @apiGroup Tool
          *
@@ -66,7 +73,7 @@ export class ToolRouter {
         this.router.post( "/", this.toolService.post );
 
         /**
-         * @api {delete} /api Delete a tool by id
+         * @api {delete} /api/contents Delete a tool by id
          * @apiName Delete a  tool
          * @apiGroup Tool
          *
@@ -78,4 +85,4 @@ export class ToolRouter {
 
 // Create router and export its Express.Router
 
-export default ToolRouter;
+export default PlotContentRouter;
