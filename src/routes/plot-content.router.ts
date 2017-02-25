@@ -67,7 +67,7 @@ export class PlotContentRouter {
          * @apiName Add a new plot content
          * @apiGroup PlotContent
          *
-         * @apiUse PlotContentRequest
+         * @apiUse PlotContentPost
          * @apiUse PlotContentResponse
          */
         this.router.post( "/", this.plotContentService.post );

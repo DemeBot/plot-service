@@ -61,7 +61,7 @@ export class PlotPositionRouter {
          * @apiName Add a new plot position
          * @apiGroup PlotPosition
          *
-         * @apiUse PlotPositionRequest
+         * @apiUse PlotPositionPost
          * @apiUse PlotPositionResponse
          */
         this.router.post( "/", this.plotPositionService.post );

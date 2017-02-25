@@ -43,7 +43,7 @@ class App {
   // Configure API endpoints.
   private routes(): void {
     this.express.use( "/doc", express.static( __dirname + "/apidoc" ) );
-    this.express.use( "/api/content", this.plotContentRouter.router );
+    this.express.use( "/api/contents", this.plotContentRouter.router );
     this.express.use( "/api/positions", this.plotPositionsRouter.router );
   }
 

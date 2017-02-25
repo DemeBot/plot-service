@@ -10,7 +10,7 @@ interface PlotContentInterface {
     PLANT_TYPES_id: number;
 
     // Plot posistion ID of the plant
-    PLOT_POSITIONS_id: number
+    PLOT_POSITIONS_id: number;
 
     // Radial position value. Unit: mm. Represents the distance from the center of the plant to the center of the DemeBot center pivot.
     r?: number;
