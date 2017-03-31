@@ -108,6 +108,40 @@ export class PlotContentController {
             } );
         } );
     }
+
+    public put(
+         _id: number,
+         _planted_at: Date,
+         _PLANT_TYPES_id: number,
+         _PLOT_POSITIONS_id: number
+        ): Promise<PlotContentInterface> {
+
+        let doc: PlotContentInterface = {
+            planted_at: _planted_at,
+            PLANT_TYPES_id: _PLANT_TYPES_id,
+            PLOT_POSITIONS_id: _PLOT_POSITIONS_id
+        };
+
+        console.log(JSON.stringify(doc))
+
+
+        let query: string = "UPDATE `PLOT_CONTENTS` SET ? WHERE `id`= " + mysql.escape(_id);
+
+        return new Promise( ( resolve, reject ) => {
+            console.log( query );
+            this.DB.query( query, doc, ( error: Error, results ) => {
+                if ( error ) reject( error );
+                else {
+                    console.log( "Updated ID: " + _id );
+                    this.get( _id )
+                    .then( ( result: PlotContentInterface[] ) => {
+                        console.log(result);
+                        resolve( result[0] );
+                    } );
+                }
+            } );
+        } );
+    }
 }
 
 export default PlotContentController;

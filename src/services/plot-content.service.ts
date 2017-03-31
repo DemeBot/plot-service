@@ -76,6 +76,31 @@ export class PlotContentService {
         } );
     }
 
+    public put = ( request: Request, response: Response, next: NextFunction ) => {
+        console.log(request.params);
+        //response.send(request.params);
+        let id: number = request.params.id;
+        let planted_at = request.body.planted_at;
+        let PLANT_TYPES_id = request.body.PLANT_TYPES_id;
+        let PLOT_POSITIONS_id = request.body.PLOT_POSITIONS_id;
+
+        this.plotContentController
+        .put(
+            id,
+            planted_at,
+            PLANT_TYPES_id,
+            PLOT_POSITIONS_id
+        )
+        .then( ( plots: PlotContentInterface ) => {
+            response.status( 200 ).send( { plots : plots } );
+            
+        } )
+        .catch( ( error: Error ) => {
+            console.log( error );
+            response.status( 500 ).send("Server error");
+        } );
+    }
+
 }
 
 export default PlotContentService;

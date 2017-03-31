@@ -74,6 +74,17 @@ export class PlotPositionRouter {
          * @apiParam (Request Parameters) {number} id Database id of the tool
          */
         this.router.delete( "/", this.plotPositionService.delete );
+
+        /**
+         * @api {put} /api/positions/:id Update a plot position by id
+         * @apiName Update a plot position's information
+         * @apiGroup PlotPosition
+         * 
+         * @apiParam (Post Body) {number} id Database id
+         * @apiUse PlotPositionPost
+         * @apiUse PlotPositionResponse
+         */
+        this.router.put( "/:id", this.plotPositionService.put );
     }
 }
 

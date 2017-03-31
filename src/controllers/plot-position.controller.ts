@@ -112,6 +112,40 @@ export class PlotPositionController {
             } );
         } );
     }
+
+    public put(
+        _id: number,
+         _r: number,
+         _t: number,
+         _z: number,
+        ): Promise<PlotPositionInterface> {
+
+        let doc: PlotPositionInterface = {
+            r: _r,
+            t: _t,
+            z: _z
+        };
+        
+        console.log(JSON.stringify(doc));
+
+
+        let query: string = "UPDATE `PLOT_POSITIONS` SET ? WHERE `id`= " + mysql.escape(_id);
+
+        return new Promise( ( resolve, reject ) => {
+            console.log( query );
+            this.DB.query( query, doc, ( error: Error, results ) => {
+                if ( error ) reject( error );
+                else {
+                    console.log( "Updated ID: " + _id );
+                    this.get( _id )
+                    .then( ( result: PlotPositionInterface[] ) => {
+                        console.log(result);
+                        resolve( result[0] );
+                    } );
+                }
+            } );
+        } );
+    }
 }
 
 export default PlotPositionController;

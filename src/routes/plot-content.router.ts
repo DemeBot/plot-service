@@ -80,6 +80,17 @@ export class PlotContentRouter {
          * @apiParam (Request Parameters) {number} id Database id of the plot content
          */
         this.router.delete( "/", this.plotContentService.delete );
+
+        /**
+         * @api {put} /api/contents/:id Update a plot content by id
+         * @apiName Update a plot content's information
+         * @apiGroup PlotContent
+         * 
+         * @apiParam (Post Body) {number} id Database id
+         * @apiUse PlotContentPost
+         * @apiUse PlotContentResponse
+         */
+        this.router.put( "/:id", this.plotContentService.put );
     }
 }
 

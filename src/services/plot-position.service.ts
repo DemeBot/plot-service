@@ -76,6 +76,31 @@ export class PlotPositionService {
         } );
     }
 
+    public put = ( request: Request, response: Response, next: NextFunction ) => {
+        console.log(request.params);
+        //response.send(request.params);
+        let id: number = request.params.id;
+        let _r = request.body.r;
+        let _t = request.body.t;
+        let _z = request.body.z;
+
+        this.plotPositionController
+        .put(
+            id,
+            _r,
+            _t,
+            _z
+        )
+        .then( ( plots: PlotPositionInterface ) => {
+            response.status( 200 ).send( { plots : plots } );
+            
+        } )
+        .catch( ( error: Error ) => {
+            console.log( error );
+            response.status( 500 ).send("Server error");
+        } );
+    }
+
 }
 
 export default PlotPositionService;
