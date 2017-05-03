@@ -66,9 +66,10 @@ export class PlotContentService {
         return this.plotContentController
         .delete( id )
         .then( ( _deleted: PlotContentInterface[] ) => {
-            console.log( "deleted tool id: " + id );
-            if ( _deleted.length > 0 ) response.status( 204 ).send( _deleted );
-            response.status( 404 ).send();
+            console.log( "deleted content id: " + id + " length: " + _deleted.length );
+            console.log( JSON.stringify( _deleted ) );
+            if ( _deleted.length >= 1 ) response.status( 202 ).send( _deleted[0] );
+            else response.status( 404 ).send();
         } )
         .catch( ( error: Error ) => {
             console.log( error );
